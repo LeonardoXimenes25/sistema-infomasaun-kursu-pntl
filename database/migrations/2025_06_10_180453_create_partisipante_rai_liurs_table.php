@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('naran');
             $table->string('diviza');
             $table->string('unidade');
+            $table->string('departamentu');
             $table->timestamps();
         });
     }

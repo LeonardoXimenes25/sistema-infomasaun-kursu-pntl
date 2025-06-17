@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class partisipante extends Model
 {
     use HasFactory;
-    protected $fillable = ['kursu_id', 'naran', 'diviza', 'unidade'];
+    protected $fillable = ['kursu_id', 'naran', 'diviza', 'unidade', 'departamentu'];
 
     public const DIVIZA_OPTIONS = [
                 'Ajente',
@@ -45,6 +45,23 @@ class partisipante extends Model
     {
         return array_combine(self::UNIDADE_OPTIONS, self::UNIDADE_OPTIONS);
     }
+
+    public const DEPARTAMENTU_OPTIONS = [
+                'Departamentu Opersaun',
+                'Departamentu Investigassaun',
+                'Departamentu Tranzitu/Trafiku',
+                'Departamentu Fronteira',
+                'Departamentu Intelejensia',
+                'Departamentu Logistika',
+                'Departamentu Formasaun',
+                'Departamentu Relasaun Komunitaria',
+    ];
+
+    public static function departamentuOptions(): array
+    {
+        return array_combine(self::DEPARTAMENTU_OPTIONS, self::DEPARTAMENTU_OPTIONS);
+    }
+
 
     public function kursu()
     {

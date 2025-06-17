@@ -14,20 +14,20 @@ class StatistikKursuWidget extends BaseWidget
     protected function getStats(): array
     {
         return [
-            Stat::make('Partisipante', partisipante::count())
-                ->description('Total Partisipante')
+            Stat::make('Partisipante Rai Laran', partisipante::count())
+                ->description('Total')
                 ->color('success'),
 
-            Stat::make('Rai Laran', kursu::count())
-                ->description('Partisipante Rai Laran')
+            Stat::make('Kursu Rai Laran', kursu::count())
+                ->description('Total')
                 ->color('info'),
-
-            Stat::make('Rai Liur', PartisipanteRaiLiur::count())
-                ->description('Partisipante Rai Liur')
+    
+            Stat::make('Partisipante Rai Liur', PartisipanteRaiLiur::count())
+                ->description('Total')
                 ->color('warning'),
 
-            Stat::make('Kursu', Kursu::count())
-                ->description('Total Kursu')
+            Stat::make('Kursu Rai Liur', KursuRaiLiur::count())
+                ->description('Total')
                 ->color('primary'),
         ];
     }

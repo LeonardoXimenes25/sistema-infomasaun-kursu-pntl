@@ -51,6 +51,12 @@ class PartisipanteRaiLiurResource extends Resource
                     ->placeholder('Hili Unidade')
                     ->required(),
 
+                    Select::make('departamentu')
+                    ->label('Departamentu')
+                    ->options(PartisipanteRaiLiur::departamentuOptions())
+                    ->placeholder('Hili Departamentu')
+                    ->required(),
+
                 Select::make('kursurailiur_id')
                     ->label('Kursu Rai Liur')
                     ->relationship('KursuRaiLiur', 'naran_kursu')
@@ -65,6 +71,7 @@ class PartisipanteRaiLiurResource extends Resource
                 TextColumn::make('naran')->label('Naran Kompletu')->sortable()->searchable(),
                 TextColumn::make('diviza')->label('Diviza')->sortable()->searchable(),
                 TextColumn::make('unidade')->label('Unidade')->sortable()->searchable(),
+                TextColumn::make('departamentu')->label('Departamentu')->sortable()->searchable(),
                 TextColumn::make('KursuRaiLiur.naran_kursu')->label('Kursu')->sortable()->searchable(),
             ])
             ->headerActions([

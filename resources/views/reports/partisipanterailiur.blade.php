@@ -18,6 +18,7 @@
                 <th>Naran</th>
                 <th>Diviza</th>
                 <th>Unidade</th>
+                <th>Departamentu</th>
             </tr>
         </thead>
         <tbody>
@@ -27,6 +28,7 @@
                     <td>{{ $item->naran }}</td>
                     <td>{{ $item->diviza }}</td>
                     <td>{{ $item->unidade }}</td>
+                    <td>{{ $item->departamentu }}</td>
                 </tr>
             @endforeach
         </tbody>

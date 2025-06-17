@@ -50,6 +50,13 @@ class PartisipanteResource extends Resource
                     ->placeholder('Hili Unidade')
                     ->required(),
 
+                Select::make('departamentu')
+                    ->label('departamentu')
+                    ->options(Partisipante::departamentuOptions())
+                    ->placeholder('Hili Departamentu')
+                    ->required(),
+    
+
                 Select::make('kursu_id')
                     ->label('Kursu')
                     ->relationship('kursu', 'naran_kursu')
@@ -65,6 +72,7 @@ class PartisipanteResource extends Resource
                 TextColumn::make('naran')->label('Naran Kompletu')->sortable()->searchable(),
                 TextColumn::make('diviza')->label('Diviza')->sortable()->searchable(),
                 TextColumn::make('unidade')->label('Unidade')->sortable()->searchable(),
+                TextColumn::make('departamentu')->label('Departamentu')->sortable()->searchable(),
                 TextColumn::make('kursu.naran_kursu')->label('Kursu')->sortable()->searchable(),
             ])
               ->headerActions([
