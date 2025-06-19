@@ -2,22 +2,28 @@
 
 namespace App\Filament\Pages;
 
-use Filament\Pages\Dashboard as BaseDashboard;
 use App\Filament\Widgets\StatistikKursuWidget;
+use Filament\Pages\Dashboard as BaseDashboard;
+use App\Filament\Widgets\StatistikGenderKursuChart;
 
 class Dashboard extends BaseDashboard
 {
     protected static ?string $navigationIcon = null;
 
+    // Widget kecil (header): tampil di atas seperti ringkasan
     public function getHeaderWidgets(): array
     {
-        return[
+        return [
             StatistikKursuWidget::class,
         ];
     }
 
+    // Widget utama: tampil di bagian utama halaman dashboard
     public function getWidgets(): array
     {
-        return []; 
+        return [
+            StatistikGenderKursuChart::class,
+        ];
     }
+    
 }

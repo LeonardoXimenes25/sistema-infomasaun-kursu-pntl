@@ -45,4 +45,14 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function kursus()
+    {
+        return $this->hasMany(Kursu::class);
+    }
+
+    public function kursurailiur()
+    {
+        return $this->hasMany(KursuRaiLiur::class);
+    }
 }

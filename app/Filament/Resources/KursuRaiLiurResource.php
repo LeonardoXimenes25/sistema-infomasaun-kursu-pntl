@@ -27,7 +27,7 @@ class KursuRaiLiurResource extends Resource
     }
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-     protected static ?string $modelLabel = 'Rai Liur';
+    protected static ?string $modelLabel = 'Rai Liur';
     protected static ?string $pluralModelLabel = 'Rai Liur';
 
     public static function form(Form $form): Form
@@ -59,30 +59,37 @@ class KursuRaiLiurResource extends Resource
                             ->required(),
 
                 TextInput::make('feto')
-    ->numeric()
-    ->reactive()
-    ->debounce(500)
-    ->afterStateUpdated(function ($state, callable $set, callable $get) {
-        if (is_numeric($state) && is_numeric($get('mane'))) {
-            $set('total', (int) $state + (int) $get('mane'));
-        }
-    }),
+                    ->label('Total Partisipante Feto')
+                    ->numeric()
+                    ->placeholder('0')
+                    ->minValue(0)
+                    ->reactive()
+                    ->debounce(500)
+                    ->afterStateUpdated(function ($state, callable $set, callable $get) {
+                        $mane = $get('mane') ?? 0;
+                        $feto = $state ?? 0;
 
-TextInput::make('mane')
-    ->numeric()
-    ->reactive()
-    ->debounce(500)
-    ->afterStateUpdated(function ($state, callable $set, callable $get) {
-        if (is_numeric($state) && is_numeric($get('feto'))) {
-            $set('total', (int) $state + (int) $get('feto'));
-        }
-    }),
+                        $set('total', (int) $feto + (int) $mane);
+                    }),
 
-TextInput::make('total')
-    ->numeric()
-    ->readOnly(),
+                TextInput::make('mane')
+                    ->label('Total Partisipante Feto')
+                    ->numeric()
+                    ->placeholder('0')
+                    ->minValue(0)
+                    ->reactive()
+                    ->debounce(500)
+                    ->afterStateUpdated(function ($state, callable $set, callable $get) {
+                        $feto = $get('feto') ?? 0;
+                        $mane = $state ?? 0;
 
+                        $set('total', (int) $feto + (int) $mane);
+                    }),
 
+                TextInput::make('total')
+                    ->numeric()
+                    ->readOnly()
+                    ->default(0),
             ]);
     }
 
@@ -90,6 +97,7 @@ TextInput::make('total')
     {
         return $table
             ->columns([
+                TextColumn::make('id')->label('No. ')->sortable()->searchable(),
                 TextColumn::make('naran_kursu')->label('Naran Kursu')->sortable()->searchable(),
                 TextColumn::make('tipu_kursu')->label('Tipu Kursu')->sortable()->searchable(),
                 TextColumn::make('fatin_kursu')->label('Fatin Kursu')->sortable()->searchable(),
@@ -100,13 +108,19 @@ TextInput::make('total')
                 TextColumn::make('mane')->label('Mane')->sortable()->searchable(),
                 TextColumn::make('total')->label('Total')->sortable()->searchable(),
             ])
-            ->headerActions([
+           ->headerActions([
             Action::make('Export PDF')
-                ->label('Export PDF')
+                ->label('Imprimir PDF')
                 ->icon('heroicon-o-document-arrow-down')
                 ->url(route('kursurailiur.report'))
-                ->openUrlInNewTab()
-              ])
+                ->openUrlInNewTab(),
+
+            Action::make('Export Excel')
+                ->label('Imprimir Excel')
+                ->icon('heroicon-o-document-arrow-down')
+                ->url(route('kursurailiur.export'))
+                ->openUrlInNewTab(),
+            ])
             ->filters([
                 //
             ])

@@ -19,4 +19,10 @@ class KursuRaiLiur extends Model
     {
         return $this->hasMany(PartisipanteRaiLiur::class);
     }
+    
+    public function user()
+    {
+        return $this->hasMany(User::class);
+    }
+    
 }

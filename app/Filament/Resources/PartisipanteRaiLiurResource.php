@@ -12,6 +12,8 @@ use Filament\Tables\Actions\Action;
 use Filament\Forms\Components\Select;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
+use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Filters\TextInputFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\PartisipanteRaiLiurResource\Pages;
@@ -68,6 +70,7 @@ class PartisipanteRaiLiurResource extends Resource
     {
         return $table
             ->columns([
+                TextColumn::make('id')->label('No. ')->sortable()->searchable(),
                 TextColumn::make('naran')->label('Naran Kompletu')->sortable()->searchable(),
                 TextColumn::make('diviza')->label('Diviza')->sortable()->searchable(),
                 TextColumn::make('unidade')->label('Unidade')->sortable()->searchable(),
@@ -79,11 +82,28 @@ class PartisipanteRaiLiurResource extends Resource
         ->label('Export PDF')
         ->icon('heroicon-o-document-arrow-down')
         ->url(route('partisipanterailiur.report'))
-        ->openUrlInNewTab()
-        ])
-            ->filters([
-                //
+        ->openUrlInNewTab(),
+
+         Action::make('Export Excel')
+                ->label('Imprimir Excel')
+                ->icon('heroicon-o-document-arrow-down')
+                ->url(route('partisipanterailiur.export'))
+                ->openUrlInNewTab(),
             ])
+            ->filters([
+            SelectFilter::make('diviza')
+                ->label('Diviza')
+                ->options(PartisipanteRaiLiur::divizaOptions()),
+
+            SelectFilter::make('unidade')
+                ->label('Unidade')
+                ->options(PartisipanteRaiLiur::unidadeOptions()),
+
+            SelectFilter::make('departamentu')
+                ->label('Departamentu')
+                ->options(PartisipanteRaiLiur::departamentuOptions()),
+            ])
+            ->filtersLayout(\Filament\Tables\Enums\FiltersLayout::Modal)
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),

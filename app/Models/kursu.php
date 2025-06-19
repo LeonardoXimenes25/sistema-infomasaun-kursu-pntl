@@ -15,9 +15,14 @@ class kursu extends Model
         'data_remata' => 'date',
     ];
 
-     public function partisipantes()
+    public function partisipantes()
     {
         return $this->hasMany(Partisipante::class);
+    }
+
+    public function user()
+    {
+        return $this->hasMany(User::class);
     }
 
 }

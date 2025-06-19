@@ -36,8 +36,6 @@ class FilamentServiceProvider extends ServiceProvider
                 PartisipanteRaiLiurResource::class,
                 KursuRaiLiurResource::class,
             ]);
-
-            // Filament::defaultRoute(fn ()=> route('filament.pages.dashboard'));
         });
     }
 }

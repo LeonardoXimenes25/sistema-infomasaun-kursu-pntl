@@ -58,29 +58,38 @@ class KursuResource extends Resource
                             ->label('Fundus')
                             ->required(),
 
-                            TextInput::make('feto')
-    ->numeric()
-    ->reactive()
-    ->debounce(500)
-    ->afterStateUpdated(function ($state, callable $set, callable $get) {
-        if (is_numeric($state) && is_numeric($get('mane'))) {
-            $set('total', (int) $state + (int) $get('mane'));
-        }
-    }),
+                TextInput::make('feto')
+                    ->label('Total Partisipante Feto')
+                    ->numeric()
+                    ->placeholder('0')
+                    ->minValue(0)
+                    ->reactive()
+                    ->debounce(500)
+                    ->afterStateUpdated(function ($state, callable $set, callable $get) {
+                        $mane = $get('mane') ?? 0;
+                        $feto = $state ?? 0;
 
-TextInput::make('mane')
-    ->numeric()
-    ->reactive()
-    ->debounce(500)
-    ->afterStateUpdated(function ($state, callable $set, callable $get) {
-        if (is_numeric($state) && is_numeric($get('feto'))) {
-            $set('total', (int) $state + (int) $get('feto'));
-        }
-    }),
+                        $set('total', (int) $feto + (int) $mane);
+                    }),
 
-TextInput::make('total')
-    ->numeric()
-    ->readOnly(),
+                TextInput::make('mane')
+                    ->label('Total Partisipante Feto')
+                    ->numeric()
+                    ->placeholder('0')
+                    ->minValue(0)
+                    ->reactive()
+                    ->debounce(500)
+                    ->afterStateUpdated(function ($state, callable $set, callable $get) {
+                        $feto = $get('feto') ?? 0;
+                        $mane = $state ?? 0;
+
+                        $set('total', (int) $feto + (int) $mane);
+                    }),
+
+                TextInput::make('total')
+                    ->numeric()
+                    ->readOnly()
+                    ->default(0),
 
                             
             ]);
@@ -103,11 +112,17 @@ TextInput::make('total')
             ])
             ->headerActions([
             Action::make('Export PDF')
-                ->label('Export PDF')
-                ->icon('heroicon-o-document-arrow-down')
+                ->label('Imprimir PDF')
+                ->icon('heroicon-o-arrow-down-tray')
                 ->url(route('kursu.report'))
-                ->openUrlInNewTab()
-              ])
+                ->openUrlInNewTab(),
+
+            Action::make('Export Excel')
+                ->label('Export Excel')
+                ->icon('heroicon-o-arrow-down-tray')
+                ->url(route('kursu.export'))
+                ->openUrlInNewTab(),
+            ])
             ->filters([
                 //
             ])

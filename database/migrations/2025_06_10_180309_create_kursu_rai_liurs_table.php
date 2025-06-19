@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('kursu_rai_liurs', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')
+                    ->constrained('users')
+                    ->onDelete('cascade');
             $table->string('naran_kursu');
             $table->string('tipu_kursu');
             $table->string('fatin_kursu');
