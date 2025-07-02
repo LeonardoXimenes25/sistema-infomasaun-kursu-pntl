@@ -2,33 +2,29 @@
 
 namespace App\Filament\Widgets;
 
-use App\Models\kursu;
+use App\Models\KursuRaiLiur;
 use Filament\Widgets\ChartWidget;
 
-class StatistikGenderKursuChart extends ChartWidget
+class StatistikGenderKursuRaiLiurChart extends ChartWidget
 {
-    protected static ?string $heading = 'Distribuisaun Kursu (Rai Laran)';
+    protected static ?string $heading = 'Distribuisaun Rai Liur';
 
-    // Lebar widget di dashboard
     protected int | string | array $columnSpan = 6;
 
     protected function getData(): array
     {
-        $mane = kursu::sum('mane');
-        $feto = kursu::sum('feto');
+        $mane = KursuRaiLiur::sum('mane');
+        $feto = KursuRaiLiur::sum('feto');
 
         return [
             'datasets' => [
                 [
                     'data' => [$mane, $feto],
-                    'backgroundColor' => ['#36A2EB', '#FF6384'],
+                    'backgroundColor' => ['#4BC0C0', '#FF9F40'],
                     'borderWidth' => 0,
                 ],
             ],
-            'labels' => [
-                "Mane (Kursu)", 
-                "Feto (Kursu)",
-            ],
+            'labels' => ['Mane', 'Feto'],
         ];
     }
 
@@ -46,12 +42,9 @@ class StatistikGenderKursuChart extends ChartWidget
                     'display' => true,
                     'position' => 'bottom',
                 ],
-                'tooltip' => [
-                    'enabled' => true,
-                ],
                 'title' => [
                     'display' => true,
-                    'text' => 'Distribuisaun Kursu (Rai Laran)',
+                    'text' => 'Kursu Rai Liur',
                     'font' => ['size' => 16],
                 ],
                 'datalabels' => [

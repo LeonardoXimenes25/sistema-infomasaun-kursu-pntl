@@ -2,9 +2,11 @@
 
 namespace App\Filament\Pages;
 
+use App\Filament\Widgets\DualGenderChart;
 use App\Filament\Widgets\StatistikKursuWidget;
 use Filament\Pages\Dashboard as BaseDashboard;
 use App\Filament\Widgets\StatistikGenderKursuChart;
+use App\Filament\Widgets\StatistikGenderKursuRaiLiurChart;
 
 class Dashboard extends BaseDashboard
 {
@@ -22,8 +24,10 @@ class Dashboard extends BaseDashboard
     public function getWidgets(): array
     {
         return [
-            StatistikGenderKursuChart::class,
+           StatistikGenderKursuChart::class,
+           StatistikGenderKursuRaiLiurChart::class,
         ];
     }
+    
     
 }

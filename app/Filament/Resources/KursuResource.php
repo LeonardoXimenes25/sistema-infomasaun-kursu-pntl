@@ -16,12 +16,13 @@ use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\KursuResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\KursuResource\RelationManagers;
+use Illuminate\Support\Facades\Auth;
 
 class KursuResource extends Resource
 {
     protected static ?string $model = Kursu::class;
 
-     public static function getNavigationGroup(): ?string
+    public static function getNavigationGroup(): ?string
     {
         return 'Kursu';
     }
@@ -91,7 +92,9 @@ class KursuResource extends Resource
                     ->readOnly()
                     ->default(0),
 
-                            
+                Forms\Components\Hidden::make('user_id')
+                    ->default(fn () => auth::id())
+                    ->required(),
             ]);
     }
 
@@ -123,6 +126,7 @@ class KursuResource extends Resource
                 ->url(route('kursu.export'))
                 ->openUrlInNewTab(),
             ])
+            
             ->filters([
                 //
             ])

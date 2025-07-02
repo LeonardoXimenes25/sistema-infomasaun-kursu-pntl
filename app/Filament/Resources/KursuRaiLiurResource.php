@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\KursuRaiLiurResource\Pages;
 use App\Filament\Resources\KursuRaiLiurResource\RelationManagers;
+use Illuminate\Support\Facades\Auth;
 
 class KursuRaiLiurResource extends Resource
 {
@@ -73,7 +74,7 @@ class KursuRaiLiurResource extends Resource
                     }),
 
                 TextInput::make('mane')
-                    ->label('Total Partisipante Feto')
+                    ->label('Total Partisipante Mane')
                     ->numeric()
                     ->placeholder('0')
                     ->minValue(0)
@@ -90,7 +91,14 @@ class KursuRaiLiurResource extends Resource
                     ->numeric()
                     ->readOnly()
                     ->default(0),
+
+                Forms\Components\Hidden::make('user_id')
+                    ->default(fn () => Auth::id())
+                    ->required(),
+
             ]);
+
+            
     }
 
     public static function table(Table $table): Table
@@ -108,7 +116,7 @@ class KursuRaiLiurResource extends Resource
                 TextColumn::make('mane')->label('Mane')->sortable()->searchable(),
                 TextColumn::make('total')->label('Total')->sortable()->searchable(),
             ])
-           ->headerActions([
+            ->headerActions([
             Action::make('Export PDF')
                 ->label('Imprimir PDF')
                 ->icon('heroicon-o-document-arrow-down')
