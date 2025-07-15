@@ -6,65 +6,27 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class partisipante extends Model
+class Partisipante extends Model
 {
     use HasFactory;
-    protected $fillable = ['kursu_id', 'naran', 'diviza', 'unidade', 'departamentu'];
 
-    public const DIVIZA_OPTIONS = [
-                'Ajente',
-                'Ajente Prinsipal',
-                'Ajente Xefe',
-                'Sarjento',
-                'Primeiru Sarjentu',
-                'Sarjentu Xefe',
-                'Inspetor Asistente',
-                'Inspetor',
-                'Inspetor Xefe',
-                'Supertemdemte Asistente',
-                'Supertendente',
-                'Supertendente Xefe',
-                'Komisariu'
+    protected $table = 'partisipantes';
+
+    protected $fillable = [
+        'kursu_id',
+        'polisia_id',
+        'sexu',   // penting, karena ada di DB
     ];
 
-    public static function divizaOptions(): array
-    {
-        return array_combine(self::DIVIZA_OPTIONS, self::DIVIZA_OPTIONS);
-    }
-
-    public const UNIDADE_OPTIONS = [
-                'Unidade Espesial Polisia (UEP)',
-                'Unidade Intervens Rapida (UIR)',
-                'Unidade Patrulhamento Fronteira (UPF)',
-                'Unidade Maritima',
-                'Unidade Pesoal Vuneravel (VPU)',
-                'Unidade Reservista Polisia'
-    ];
-
-    public static function unidadeOptions(): array
-    {
-        return array_combine(self::UNIDADE_OPTIONS, self::UNIDADE_OPTIONS);
-    }
-
-    public const DEPARTAMENTU_OPTIONS = [
-                'Departamentu Opersaun',
-                'Departamentu Investigassaun',
-                'Departamentu Tranzitu/Trafiku',
-                'Departamentu Fronteira',
-                'Departamentu Intelejensia',
-                'Departamentu Logistika',
-                'Departamentu Formasaun',
-                'Departamentu Relasaun Komunitaria',
-    ];
-
-    public static function departamentuOptions(): array
-    {
-        return array_combine(self::DEPARTAMENTU_OPTIONS, self::DEPARTAMENTU_OPTIONS);
-    }
-
-
-    public function kursu()
+    // Relasi ke Kursu (many-to-one)
+    public function kursu(): BelongsTo
     {
         return $this->belongsTo(Kursu::class);
+    }
+
+    // Relasi ke Polisia (many-to-one)
+    public function polisia(): BelongsTo
+    {
+        return $this->belongsTo(Polisia::class, 'polisia_id');
     }
 }

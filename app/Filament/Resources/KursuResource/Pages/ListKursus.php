@@ -6,7 +6,7 @@ use App\Filament\Resources\KursuResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 
-class ListKursus extends ListRecords
+class ListKursu extends ListRecords
 {
     protected static string $resource = KursuResource::class;
 

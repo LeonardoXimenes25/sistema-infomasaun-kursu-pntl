@@ -10,13 +10,10 @@ use Filament\Support\Colors\Color;
 use App\Filament\Resources\KursuResource;
 use Filament\Http\Middleware\Authenticate;
 use Illuminate\Session\Middleware\StartSession;
-use App\Filament\Resources\KursuRaiLiurResource;
-use App\Filament\Resources\PartisipanteResource;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Filament\Http\Middleware\AuthenticateSession;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
-use App\Filament\Resources\PartisipanteRaiLiurResource;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -40,10 +37,7 @@ class AdminPanelProvider extends PanelProvider
                 \App\Filament\Pages\Dashboard::class,
             ])
             ->resources([
-                PartisipanteResource::class,
                 KursuResource::class,
-                PartisipanteRaiLiurResource::class,
-                KursuRaiLiurResource::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([

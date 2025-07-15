@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('partisipantes', function (Blueprint $table) {
+        Schema::create('unidades', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('kursu_id')->constrained('kursus')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('polisia_id')->constrained('polisias')->cascadeOnDelete();
-            $table->enum('sexu', ['M', 'F']);
+            $table->string('kodigu')->unique();
+            $table->string('naran');
             $table->timestamps();
-            $table->unique(['kursu_id', 'polisia_id']);
         });
     }
 
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('partisipantes');
+        Schema::dropIfExists('unidades');
     }
 };

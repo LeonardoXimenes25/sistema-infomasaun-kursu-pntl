@@ -6,9 +6,6 @@ use Filament\Facades\Filament;
 use App\Filament\Pages\Dashboard;
 use Illuminate\Support\ServiceProvider;
 use App\Filament\Resources\KursuResource;
-use App\Filament\Resources\KursuRaiLiurResource;
-use App\Filament\Resources\PartisipanteResource;
-use App\Filament\Resources\PartisipanteRaiLiurResource;
 
 class FilamentServiceProvider extends ServiceProvider
 {
@@ -31,10 +28,7 @@ class FilamentServiceProvider extends ServiceProvider
             ]);
 
             Filament::registerResources([
-                PartisipanteResource::class,
                 KursuResource::class,
-                PartisipanteRaiLiurResource::class,
-                KursuRaiLiurResource::class,
             ]);
         });
     }

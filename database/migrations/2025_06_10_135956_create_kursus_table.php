@@ -13,18 +13,14 @@ return new class extends Migration
     {
         Schema::create('kursus', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')
-                    ->constrained('users')
-                    ->onDelete('cascade');
-            $table->string('naran_kursu');
-            $table->string('tipu_kursu');
-            $table->string('fatin_kursu');
+            $table->foreignId('user_id')->constrained()->cascadeOnUpdate()->restrictOnDelete();
+            $table->foreignId('kategoria_id')->constrained('kategorias')->cascadeOnDelete();
+            $table->foreignId('tipu_kursu_id')->constrained('tipu_kursu')->cascadeOnDelete();
+            $table->foreignId('materia_id')->constrained('materias')->cascadeOnDelete();
+            $table->foreignId('fatin_kursu_id')->constrained('fatin_kursu')->cascadeOnUpdate()->restrictOnDelete();
+            $table->foreignId('fundus_id')->constrained('fundus')->cascadeOnUpdate()->restrictOnDelete();
             $table->date('data_hahu');
             $table->date('data_remata');
-            $table->string('fundus');
-            $table->unsignedInteger('feto')->nullable();
-            $table->unsignedInteger('mane')->nullable();
-            $table->unsignedInteger('total');
             $table->timestamps();
         });
     }
